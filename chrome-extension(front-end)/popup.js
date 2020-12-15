@@ -4,7 +4,7 @@ $(function(){
 	console.log("WebExtloaded");
 
 	//Simple txt label for misc info/debug
-	$("#txtStatus").text("Extension is loaded!");
+	$("#txtStatus").text("Extension is loaded!").css({"color": "green"});
 
 	//Setup event listener on button
 	$("#btnDo").click(function(e){
