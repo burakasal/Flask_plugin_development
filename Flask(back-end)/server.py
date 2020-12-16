@@ -80,8 +80,9 @@ def fetch():
 
 
     my_tf= freq_function(word_dict, sentence)
-    tf= pd.DataFrame([my_tf])
-    print("The frequency table is: \n",tf)
+    tf= pd.DataFrame([my_tf]).values.tolist()
+    tfList = tf[0]
+    print("The frequency table is: \n",tfList[-5:])
 
     print( len(my_tf))
 
