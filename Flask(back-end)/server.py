@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 import requests
 import re 
 import pandas as pd
+import spacy
+from spacy.lang.en.stop_words import STOP_WORDS
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -80,14 +82,44 @@ def fetch():
 
 
     my_tf= freq_function(word_dict, sentence)
-    tf= pd.DataFrame([my_tf]).values.tolist()
-    tfList = tf[0]
-    print("The frequency table is: \n",tfList[-5:])
-
-    print( len(my_tf))
-
-    jres = {'title': 'OK', 'detail':'NLP FUNCTION:' + str(tf)}
+    
+    
+    jres = {'detail':'NLP FUNCTION:' + str(my_tf)}
     return jsonify(jres)
 
+@app.route('/api/fetch2', methods=['POST'])
+def fetch2():
+    data = request.get_data()  
+    data2 = data.decode("ascii")
+    html_content = requests.get(data2).text
+    soup = BeautifulSoup(html_content, 'lxml')
+    mytext= soup.find_all("p")
+    text = ""
+    for points in mytext:
+        point = str(points.text)
+        text += point
+
+    nlp = spacy.load("en_core_web_sm")
+
+    doc = nlp(text)
+    #TOKENIZATION IMPLEMENTATION
+    for token in doc:
+        print(token.text,token.pos_)
+
+    tetx = []
+    labels = []
+    #NER
+    my_str = ""
+    for ent in doc.ents:
+        tetx.append(ent.text)
+        labels.append(ent.label_)
+        #print(ent.text, ent.label_)  
+        my_str = my_str+ ent.text + ent.label_ + "," 
+
+    tetXXX = ''.join(tetx)
+    labelZZ  = ''.join(labels)
+    jres = {'detail':'NLP FUNCTION:' + my_str}
+    return jsonify(jres)    
 
 app.run()
+
