@@ -8,6 +8,8 @@ import re
 import pandas as pd
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.corpus import stopwords as sw
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -24,67 +26,58 @@ def fetch():
     html_content = requests.get(data2).text
     soup = BeautifulSoup(html_content, 'lxml')
     mytext= soup.find_all("p")
-    text = ""
+    text = []
     for points in mytext:
         point = str(points.text)
-        text += point
+        # text += point
+        text.append(point)
 
-    sentence = text
-    # make the sentence a clear array
-    sentence = sentence.lower()  # lower the letters
 
-    alphabet = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8,
-                'j': 9, 'k': 10, 'l': 11, 'm': 12, 'n': 13, 'o': 14, 'p': 15, 'q': 16,
-                'r': 17, 's': 18, 't': 19, 'u': 20, 'v': 21, 'w': 22, 'x': 23, 'y': 24,
-                'z': 25, ' ': 26}
+    # Pre-processing
+    stopWords = sw.words('english.txt')
+    Data = []
+    for item in text:
+        item = item.lower()
+        item = re.sub(r'[^\w\s]', '', item)
+        Data.append(item)
 
-    #sentence1 = ""
-    '''for i in sentence:  # remove the marks
-        if i in alphabet:
-            sentence1 += i'''
-    sentence1 = re.sub(r'[^\w\s]', '', sentence)
-    #Removed the punctuation marks from the sentece using regular expression library of Python.
-    sentence = sentence1
-
-    sentence = sentence.split(" ")
-
-    # _______________________________________
-    # removing stopwords will increase computation and space efficiency.
-
-    WorddictA = []
-    # _________________________________
-
-    # create a dictionary, print as a dataframe
-    word_dict = dict.fromkeys(sentence, 0)
-    for word in sentence:
-        word_dict[word] += 1
-    print("\nAs a dictionary: ",word_dict)
-
-    df = pd.DataFrame([word_dict])
-    print("\nAs a table: \n", df)
-
-    #create a frequency table
-    def freq_function(dict, text):
-        tf_dict={}
-        corpus_count=len(text)
-        for word, count in dict.items():
-            tf_dict[word]= (count / corpus_count)*100
-
-        return (tf_dict)
-
-    '''
-    my_tf= freq_function(word_dict, sentence)
-    tf= pd.DataFrame([my_tf])
-    print("The frequency table is: \n",tf)    
-    print(text)'''
+    vectorizer = TfidfVectorizer(stop_words=stopWords)
+    X = vectorizer.fit_transform(Data).toarray()
     
-    word_dict= {k: v for k, v in sorted(word_dict.items(), key=lambda item: item[1])}
+    myDictionary = []
+    featureCount = 0
+    for item in vectorizer.get_feature_names():
+        myDictionary.append(item)
+        featureCount += 1
+
+    (row, column) = X.shape
+    tfidf = [0] * featureCount
+    counter = 0
+    while counter < featureCount:
+        for j in range(0, row):
+            tfidf[counter] += X[j][counter]
+        counter += 1
 
 
-    my_tf= freq_function(word_dict, sentence)
+    TFIDF = {}
+    for i in range(0, featureCount):
+        TFIDF[myDictionary[i]] = tfidf[i]
+
+
+    SortedDict= {k: v for k, v in sorted(TFIDF.items(), key=lambda item: item[1])}   
+    TFIDFListesi = []
+    for item, value in SortedDict.items():
+        TFIDFListesi.append(item + ":")
+        TFIDFListesi.append(value)
+
     
-    
-    jres = {'detail':'NLP FUNCTION:' + str(my_tf)}
+    mostImportantwords = TFIDFListesi[-20:]
+    term = ""
+    for i in range(0, len(mostImportantwords)):
+        term += str(mostImportantwords[i]) + " "
+
+
+    jres = {'detail':'Descriptive Terms: ' + term}
     return jsonify(jres)
 
 @app.route('/api/fetch2', methods=['POST'])
@@ -102,23 +95,26 @@ def fetch2():
     nlp = spacy.load("en_core_web_sm")
 
     doc = nlp(text)
-    #TOKENIZATION IMPLEMENTATION
-    for token in doc:
-        print(token.text,token.pos_)
 
-    tetx = []
-    labels = []
-    #NER
-    my_str = ""
+    OrganizationList = []
+    GPEList = []
+    PersonList = []
     for ent in doc.ents:
-        tetx.append(ent.text)
-        labels.append(ent.label_)
-        #print(ent.text, ent.label_)  
-        my_str = my_str+ ent.text + ent.label_ + "," 
+        if ent.label_ == "PERSON":
+            PersonList.append(ent.text)
+        if ent.label_ == "ORG":
+            OrganizationList.append(ent.text)
+        if ent.label_ == "GPE":
+            GPEList.append(ent.text)
+        
+    TaggedOrganizations = ' '.join(OrganizationList)
+    TaggedPersons = ' '.join(PersonList)
+    TaggedGeographicalEntities = ' '.join(GPEList)
 
-    tetXXX = ''.join(tetx)
-    labelZZ  = ''.join(labels)
-    jres = {'detail':'NLP FUNCTION:' + my_str}
+    jres = {'org': 'Organizations: ' + TaggedOrganizations,
+            'per': 'Persons: ' + TaggedPersons,
+            'loc': 'Locations: ' + TaggedGeographicalEntities
+            }
     return jsonify(jres)    
 
 app.run()

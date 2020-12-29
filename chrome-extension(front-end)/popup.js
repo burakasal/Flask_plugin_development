@@ -51,7 +51,9 @@ $(function(){
            			// You will get response from your PHP page (what you echo or print)
            			console.log(response);
            			$("#txtStatus").text("Connection successful to backend!").css({ 'color': 'green'});
-        			$("#txtResponse").text(response.detail).css({ 'color': 'blue'});
+					$("#txtResponse").text(response.org).css({ 'color': 'blue'});
+					$("#txtResponse1").text(response.per).css({ 'color': 'blue'});
+					$("#txtResponse2").text(response.loc).css({ 'color': 'blue'});
         		},
         		error: function(jqXHR, textStatus, errorThrown) {
            			console.log(textStatus, errorThrown);
