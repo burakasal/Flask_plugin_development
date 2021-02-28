@@ -86,8 +86,12 @@ def fetch2():
     data2 = data.decode("ascii")
     html_content = requests.get(data2).text
     soup = BeautifulSoup(html_content, 'lxml')
+    
+    for a in soup.findAll('a', href=True):
+        a.extract()
     mytext= soup.find_all("p")
     text = ""
+    
     for points in mytext:
         point = str(points.text)
         text += point
