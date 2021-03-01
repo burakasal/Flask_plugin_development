@@ -3,25 +3,36 @@
   <head>
     <style>
       body {
-        height: 80px;
-        width: 150px;
+        height: 50px;
+        width: 100px;
+        position: relative;
+        background-color:#800000
       }
       .wrapper {
-        text-align: center;
-        margin: 0 auto;
-        float: left;
-      }
-      .wrapper2 {
-        text-align: center;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
       }
       .output {
         text-align: center;
       }
+      #myButton{
+        background-color: #ffe4e1;
+        border-radius: 6px;
+        border: 3px solid #000000
+      }
+      #myButton:hover {
+        background-color: #555555;
+        color: white;
+      }
     </style>
   <script src="res/js/jquery-3.5.1.js"></script>
   </head>
-<body style="background-color:#264653">
-  <div class="wrapper2">
+<body>
+  <div class="wrapper">
     <button id="myButton">Detect Language</button>
   </div>
   <script type="text/javascript" src="popup.js"></script>

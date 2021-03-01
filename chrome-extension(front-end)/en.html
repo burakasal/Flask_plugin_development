@@ -5,50 +5,66 @@
       body {
         height: 300px;
         width: 450px;
+        background-color:#800000
       }
       .wrapper {
         text-align: center;
         margin: 0 auto;
         float: left;
+        background-color:#800000;
+        padding: 12px
       }
       .wrapper2 {
         text-align: center;
+        padding: 12px
       }
       .output {
         text-align: center;
+        background-color: #f0f8ff;
+        padding: 8px
+      }
+      .buttons {
+        background-color: #ffe4e1;
+        border-radius: 6px;
+        border: 3px solid #000000
+      }
+      .buttons:hover {
+        background-color: #555555;
+        color: white;
       }
     </style>
   <script src="res/js/jquery-3.5.1.js"></script>
   </head>
-<body style="background-color:#264653">
-  <div class="wrapper" style="padding: 12px; background-color: #264653">
-    <button id="btnDo">Term Weighting</button>
+<body>
+  <div class="wrapper">
+    <button id="btnDo" class="buttons">Term Weighting</button>
   </div>
-  <div class="wrapper" style="padding: 12px; background-color: #264653">
-    <button id="btnNer">NER</button>
+  <div class="wrapper">
+    <button id="btnNer" class="buttons">NER</button>
   </div>
-  <div class="wrapper" style="padding: 12px; background-color: #264653">
-    <button id="btnDo2">Heap's Law</button> </div>
-  <div class="wrapper" style="padding: 12px; background-color: #264653">
-    <button id="btnDo3">Zipf's Law</button> </div>
-  <div class="wrapper2" style="padding: 12px; background-color: #264653">
-    <button id="btnDo4">Wordcloud</button> </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="wrapper">
+    <button id="btnDo2" class="buttons">Heap's Law</button> </div>
+  <div class="wrapper">
+    <button id="btnDo3" class="buttons">Zipf's Law</button> </div>   
+  <div class="wrapper2">
+    <button id="btnDo4" class="buttons">Wordcloud</button> </div> 
+
+  <div class="output">
     <h4 id="txtResponse"></h4>
   </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="output">
     <h4 id="txtResponse1"></h4>
   </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="output">
     <h4 id="txtResponse2"></h4>
   </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="output">
     <h4 id="txtResponse3"></h4>
   </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="output">
     <h4 id="txtResponse4"></h4>
   </div>
-  <div class="output" style="padding: 1px; background-color: #f2f3f3">
+  <div class="output">
     <h4 id="txtResponse5"></h4>
   </div>
   <script type="text/javascript" src="popup.js"></script>

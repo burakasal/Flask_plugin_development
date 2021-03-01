@@ -3,7 +3,7 @@
 
   "name": "NLP Extension",
   "description": "Exchanges data with backend",
-  "version": "1.0",
+  "version": "1.4",
 
   "icons": {
     "48": "res/img/icon.png"

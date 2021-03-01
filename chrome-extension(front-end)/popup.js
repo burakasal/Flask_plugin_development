@@ -5,9 +5,7 @@ $(function(){
 
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
-			console.log("URL: "+taburl);
-
-    		// make ajax request to our server
+			
     		$.ajax({
         		url: "http://localhost:5000/api/fetch",
         		type: "post",
@@ -30,9 +28,7 @@ $(function(){
 
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
-			console.log("URL: "+taburl);
 			
-    		// make ajax request to our server
     		$.ajax({
         		url: "http://localhost:5000/api/fetch2",
         		type: "post",
@@ -54,9 +50,7 @@ $(function(){
 	$("#btnDo2").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
-			console.log("URL: "+taburl);
-			
-    		// make ajax request to our server
+    		
     		$.ajax({
         		url: "http://localhost:5000/api/fetch3",
         		type: "post",
@@ -73,9 +67,7 @@ $(function(){
 	$("#btnDo3").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
-			console.log("URL: "+taburl);
 			
-    		// make ajax request to our server
     		$.ajax({
         		url: "http://localhost:5000/api/fetch4",
         		type: "post",
@@ -91,9 +83,7 @@ $(function(){
 	$("#btnDo4").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
-			console.log("URL: "+taburl);
 			
-    		// make ajax request to our server
     		$.ajax({
         		url: "http://localhost:5000/api/fetch5",
         		type: "post",
