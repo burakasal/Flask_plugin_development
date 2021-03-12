@@ -3,7 +3,7 @@
   <head>
     <style>
       body {
-        height: 300px;
+        height: 90px;
         width: 450px;
         background-color: #800000
       }
@@ -19,7 +19,6 @@
         padding: 12px;
       }
       .output {
-        text-align: center;
         background-color: #f0f8ff;
         padding: 10px;
       }
@@ -32,32 +31,27 @@
         background-color: #555555;
         color: white;
       }
+      #txtResponse{
+        text-align: center;
+      }
     </style>
   <script src="res/js/jquery-3.5.1.js"></script>
   </head>
 <body>
   <div class="wrapper">
-    <button id="btnDo" class="buttons">Term Weighting</button>
+    <button id="btnTerm" class="buttons">Term Weighting</button>
   </div>
   <div class="wrapper">
-    <button id="btnDo2" class="buttons">Heap's Law</button> </div>
+    <button id="btnHeap" class="buttons">Heap's Law</button> </div>
   <div class="wrapper">
-    <button id="btnDo3" class="buttons">Zipf's Law</button> </div>
+    <button id="btnCon" class="buttons">Content</button> </div>
   <div class="wrapper2">
-    <button id="btnDo4" class="buttons">Wordcloud</button> </div>
+    <button id="btnWord" class="buttons">Wordcloud</button> </div>
   <div class="output">
-    <h4 id="txtResponse"></h4>
-  </div>
-  <div class="output">
+    <h4 id="txtResponse">Page Language is <span style="color: #800000">Turkish.</span></h4>
     <h4 id="txtResponse1"></h4>
-  </div>
-  <div class="output">
     <h4 id="txtResponse2"></h4>
-  </div>
-  <div class="output">
     <h4 id="txtResponse3"></h4>
-  </div>
-  <div class="output">
     <h4 id="txtResponse4"></h4>
   </div>
 

@@ -1,7 +1,7 @@
 //Initialize jquery for extension load
 $(function(){
 	//Setup event listener on button
-	$("#btnDo").click(function(e){
+	$("#btnTerm").click(function(e){
 
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
@@ -13,12 +13,12 @@ $(function(){
         		contentType: "application/json",
         		success: function (response) {
            			console.log(response);
-					$("#txtResponse").text(response.detail).css({ 'color': 'red'});
+					$("#txtResponse").text(response.detail).css({ 'color': "maroon"});
 					$("#txtResponse1").text(response.detail2).css({ 'color': 'black'});
-					$("#txtResponse2").text(" ").css({ 'color': 'black'});
-					$("#txtResponse3").text(" ").css({ 'color': 'black'});
-					$("#txtResponse4").text(" ").css({ 'color': 'black'});
-					$("#txtResponse5").text(" ").css({ 'color': 'black'});
+					$("#txtResponse2").text(" ")
+					$("#txtResponse3").text(" ")
+					$("#txtResponse4").text(" ")
+					$("#txtResponse5").text(" ")
         		}
     		});
 
@@ -36,18 +36,18 @@ $(function(){
         		contentType: "application/json",
         		success: function (response) {
            			console.log(response);
-					$("#txtResponse").text(response.org).css({ 'color': 'red'});
+					$("#txtResponse").text(response.org).css({ 'color': 'maroon'});
 					$("#txtResponse1").text(response.org2).css({ 'color': 'black'});
-					$("#txtResponse2").text(response.per).css({ 'color': 'red'});
+					$("#txtResponse2").text(response.per).css({ 'color': 'maroon'});
 					$("#txtResponse3").text(response.per2).css({ 'color': 'black'});
-					$("#txtResponse4").text(response.loc).css({ 'color': 'red'});
+					$("#txtResponse4").text(response.loc).css({ 'color': 'maroon'});
 					$("#txtResponse5").text(response.loc2).css({ 'color': 'black'});
         		}
     		});
   		});		
 	});
 
-	$("#btnDo2").click(function(e){
+	$("#btnHeap").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
     		
@@ -64,7 +64,7 @@ $(function(){
   		});		
 	});
 
-	$("#btnDo3").click(function(e){
+	$("#btnCon").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
 			
@@ -76,11 +76,16 @@ $(function(){
         		success: function (response) {
            			console.log(response);
 					$("#txtResponse").text(response.detail).css({ 'color': 'black'});
+					$("#txtResponse1").text(" ")
+					$("#txtResponse2").text(" ")
+					$("#txtResponse3").text(" ")
+					$("#txtResponse4").text(" ")
+					$("#txtResponse5").text(" ")
         		}
     		});
   		});		
 	});
-	$("#btnDo4").click(function(e){
+	$("#btnWord").click(function(e){
 		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 			let taburl = tabs[0].url;
 			
@@ -92,6 +97,23 @@ $(function(){
         		success: function (response) {
            			console.log(response);
 					$("#txtResponse").text(response.detail).css({ 'color': 'black'});
+        		}
+    		});
+  		});		
+	});
+	$("#btnSum").click(function(e){
+		SentNum = prompt("How many sentences do you want? (Please wait while it loads)")
+		chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+			let taburl = tabs[0].url;
+			dict2 = {taburl: taburl, SentNum: SentNum}
+    		$.ajax({
+        		url: "http://localhost:5000/api/fetch6",
+        		type: "post",
+        		data: JSON.stringify(dict2),
+        		contentType: "application/json",
+        		success: function (response) {
+					$("#txtResponse").text("");
+					$("#txtResponse1").text(response.detail).css({ 'color': 'black'});
         		}
     		});
   		});		
