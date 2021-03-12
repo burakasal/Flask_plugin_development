@@ -14,7 +14,7 @@ $(function(){
         		success: function (response) {
            			console.log(response);
 					$("#txtResponse").text(response.detail).css({ 'color': "maroon"});
-					$("#txtResponse1").text(response.detail2).css({ 'color': 'black'});
+					$("#txtResponse1").html(response.detail2).css({ 'color': 'black'});
 					$("#txtResponse2").text(" ")
 					$("#txtResponse3").text(" ")
 					$("#txtResponse4").text(" ")
@@ -114,6 +114,8 @@ $(function(){
         		success: function (response) {
 					$("#txtResponse").text("");
 					$("#txtResponse1").text(response.detail).css({ 'color': 'black'});
+					$("#txtResponse2").text(" ");
+					$("#txtResponse3").text(" ");
         		}
     		});
   		});		

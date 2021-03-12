@@ -19,7 +19,7 @@ $(function () {
           $("#txtResponse").text(response.detail).css({
             'color': "maroon"
           });
-          $("#txtResponse1").text(response.detail2).css({
+          $("#txtResponse1").html(response.detail2).css({
             'color': 'black'
           });
           $("#txtResponse2").text(" ");
@@ -151,6 +151,8 @@ $(function () {
           $("#txtResponse1").text(response.detail).css({
             'color': 'black'
           });
+          $("#txtResponse2").text(" ");
+          $("#txtResponse3").text(" ");
         }
       });
     });
